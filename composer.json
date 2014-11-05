@@ -1,7 +1,7 @@
 {
     "name": "solve/project",
     "type": "project",
-    "description": " - [ Solve Project ]",
+    "description": " - [ Solve Project ] standart edition",
     "keywords": ["solve","framework","kernel","cmf"],
     "homepage": "http://github.com/Solve/Project",
     "license": "MIT",
@@ -16,7 +16,14 @@
         "solve/solve": "*"
     },
     "autoload": {
-        "psr-0": { "Solve": "" }
+        "psr-0": { "SolveProject": "src/libs/" }
     },
-    "target-dir": ""
+    "scripts": {
+        "post-root-package-install": [
+            "SolveProject\\Composer::onPostRootPackageInstall"
+        ]
+    },
+    "extra": {
+        "solve-web-root" : "web"
+    }
 }
