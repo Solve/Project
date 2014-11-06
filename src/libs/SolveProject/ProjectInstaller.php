@@ -20,8 +20,11 @@ class ProjectInstaller {
      */
     protected static $io;
 
+    protected static $fs;
+
     public static function onPostRootPackageInstall(CommandEvent $event) {
         self::$io = $event->getIO();
+        self::$fs = new FSService();
         if (!self::$io->askConfirmation('Would you like to setup project?(Y/n)')) {
             self::$io->write('Exiting...');
             return false;
@@ -29,17 +32,17 @@ class ProjectInstaller {
         self::createStructure();
         self::generateProjectConfig();
         self::generateDatabaseConfig();
+        self::geenrateFrontendApp();
     }
 
     protected static function createStructure() {
         self::$io->write('Creating directory structure...', false);
 
         $root = getcwd();
-        $fs = new FSService();
         $structure = array(
             $root,
             $root . '/app/Frontend/Controllers',
-            $root . '/app/Frontend/Views',
+            $root . '/app/Frontend/Views/index',
             $root . '/config',
             $root . '/src/classes',
             $root . '/src/db',
@@ -49,7 +52,7 @@ class ProjectInstaller {
             $root . '/web/css',
             $root . '/web/js',
         );
-        $fs->makeWritable($structure);
+        self::$fs->makeWritable($structure);
         self::$io->write('done');
     }
 
@@ -99,6 +102,53 @@ EOF;
         self::$io->write('Database config created.');
     }
 
+    protected static function geenrateFrontendApp() {
+        self::$io->write('Generating Frontend app...', false);
+        $appConfig = <<<CONFIG
+routes:
+  default:
+    pattern: '/'
+
+dependencies:
+CONFIG;
+        file_put_contents(getcwd() . '/app/Frontend/config.yml', $appConfig);
+
+
+        $indexController = <<<EOF
+<?php
+/*
+ * This file is a part of Solve framework.
+ */
+
+namespace Frontend\Controllers;
+
+use Solve\Controller\BaseController;
+
+class IndexController extends BaseController {
+
+    public function defaultAction() {
+    }
+
+}
+EOF;
+        file_put_contents(getcwd() . '/app/Frontend/Controllers/IndexController.php', $appConfig);
+
+        $layoutView = <<<EOF
+Layout content<br/>
+and<br/>
+inner template content:<br/>
+{{ innerTemplateContent }}
+EOF;
+        file_put_contents(getcwd() . '/app/Frontend/Views/_layout.slot', $layoutView);
+        $indexView = <<<EOF
+INDEX VIEW CONTENT
+EOF;
+        file_put_contents(getcwd() . '/app/Frontend/Views/index/default.slot', $indexView);
+
+
+        self::$io->write('done.');
+    }
+
     protected static function askParameters($params) {
         $result = array();
         foreach($params as $name=>$info) {
@@ -118,4 +168,5 @@ EOF;
         foreach(array_keys($params) as $key) $keys[] = '__' . $key . '__';
         return str_replace($keys, $params, $content);
     }
+
 }

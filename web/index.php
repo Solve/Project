@@ -13,6 +13,4 @@ if (!is_file($vendorPath . 'autoload.php')) {
 
 require_once $vendorPath . 'autoload.php';
 use Solve\Kernel\Kernel;
-$kernel = Kernel::getMainInstance();
-echo "<pre>";
-var_dump($kernel->getEnvironment());die();
+Kernel::getMainInstance()->run();
