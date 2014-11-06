@@ -20,7 +20,10 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "SolveProject\\Composer::onPostRootPackageInstall"
+            "SolveProject\\ProjectInstaller::onPostRootPackageInstall"
+        ],
+        "post-install-cmd" : [
+            "SolveProject\\ProjectInstaller::onPostRootPackageInstall"
         ]
     },
     "extra": {

@@ -1,5 +1,0 @@
-applications:
-  admin: ~
-  frontend:
-defaultApplication: frontend
-name: "Test project"
