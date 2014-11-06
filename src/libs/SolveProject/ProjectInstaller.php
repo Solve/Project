@@ -131,7 +131,7 @@ class IndexController extends BaseController {
 
 }
 EOF;
-        file_put_contents(getcwd() . '/app/Frontend/Controllers/IndexController.php', $appConfig);
+        file_put_contents(getcwd() . '/app/Frontend/Controllers/IndexController.php', $indexController);
 
         $layoutView = <<<EOF
 Layout content<br/>
