@@ -19,9 +19,6 @@
         "psr-0": { "SolveProject": "src/libs/" }
     },
     "scripts": {
-        "post-root-package-install": [
-            "SolveProject\\ProjectInstaller::onPostRootPackageInstall"
-        ],
         "post-install-cmd" : [
             "SolveProject\\ProjectInstaller::onPostRootPackageInstall"
         ]
