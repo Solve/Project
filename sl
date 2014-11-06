@@ -1,5 +1,6 @@
+#!/usr/bin/env php
 <?php
-$vendorPath = __DIR__ . '/../vendor/';
+$vendorPath = __DIR__ . '/vendor/';
 
 if (!is_file($vendorPath . 'autoload.php')) {
     $invalidMessage = "You have corrupted installation of Solve Framework.\n"
@@ -13,5 +14,11 @@ if (!is_file($vendorPath . 'autoload.php')) {
 
 require_once $vendorPath . 'autoload.php';
 use Solve\Kernel\Kernel;
+use Solve\DependencyInjection\DependencyContainer;
 
-Kernel::getMainInstance()->run();
+$dc = new DependencyContainer(array(
+    'consoleRequest' => array(
+        'className' => '\Solve\Router\ConsoleRequest'
+    )
+));
+Kernel::getMainInstance($dc)->run();
