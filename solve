@@ -24,4 +24,7 @@ $dc = new DependencyContainer(array(
         'className' => '\Solve\Application\ConsoleApplication'
     ),
 ));
-Kernel::getMainInstance($dc)->run();
+$kernel = Kernel::getMainInstance($dc);
+$kernel->getEnvironment()->setProjectRoot(__DIR__. '/' , true);
+$kernel->run();
+
