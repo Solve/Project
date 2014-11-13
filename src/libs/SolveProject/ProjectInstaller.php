@@ -23,6 +23,8 @@ class ProjectInstaller {
     protected static $fs;
 
     public static function onPostRootPackageInstall(CommandEvent $event) {
+        if (is_dir(getcwd() . '/app') && is_file(getcwd() . '/config/project.yml')) return true;
+
         self::$io = $event->getIO();
         self::$fs = new FSService();
         if (!self::$io->askConfirmation('Would you like to setup project?(Y/n)')) {
