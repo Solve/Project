@@ -13,14 +13,18 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "solve/solve": "*"
+        "solve/solve": "*",
+        "solve/admin": "*"
     },
     "autoload": {
         "psr-0": { "SolveProject": "src/libs/" }
     },
     "scripts": {
         "post-install-cmd" : [
-            "SolveProject\\ProjectInstaller::onPostRootPackageInstall"
+            "SolveProject\\ProjectInstaller::configureWithDependencies"
+        ],
+        "post-update-cmd" : [
+            "SolveProject\\ProjectInstaller::configureWithDependencies"
         ]
     },
     "extra": {
