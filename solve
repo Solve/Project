@@ -17,6 +17,9 @@ use Solve\Kernel\Kernel;
 use Solve\DependencyInjection\DependencyContainer;
 
 $dc = new DependencyContainer(array(
+    'packagesConfigurator' => array(
+        'className' => '\Solve\Kernel\PackagesConfigurator'
+    ),
     'consoleRequest' => array(
         'className' => '\Solve\Router\ConsoleRequest'
     ),
