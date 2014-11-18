@@ -13,8 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "solve/solve": "*",
-        "solve/admin": "*"
+        "solve/solve": "*"
     },
     "autoload": {
         "psr-0": { "SolveProject": "src/libs/" }
