@@ -64,7 +64,7 @@ class ProjectInstaller {
         $requires = self::$composer->getPackage()->getRequires();
         foreach (self::$_packagesAwareOf as $packageName => $handlerClass) {
             if (!empty($requires[$packageName])) {
-                call_user_func(array($handlerClass, "onPostPackageInstall"), self::$event);
+                if (is_callable(array($handlerClass, "onPostPackageInstall"))) call_user_func(array($handlerClass, "onPostPackageInstall"), self::$event);
             }
         }
     }
